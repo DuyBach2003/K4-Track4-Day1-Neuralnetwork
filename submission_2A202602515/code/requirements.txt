@@ -1,0 +1,7 @@
+# Đã chạy với các phiên bản dưới đây (Python 3.12, Apple M5 / MPS). Colab/Kaggle đã có sẵn các thư viện này.
+torch==2.14.1
+numpy==2.5.3
+pandas==3.0.6
+scikit-learn==1.9.1
+matplotlib==3.11.2
+openpyxl==3.1.5
