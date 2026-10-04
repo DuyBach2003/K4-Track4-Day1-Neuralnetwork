@@ -74,6 +74,8 @@ def clip_gradients(params, max_norm: float | None) -> torch.Tensor:
     """
     params = [p for p in params if p.grad is not None]
     if max_norm is None:
-        # chỉ đo, không cắt
-        return torch.nn.utils.get_total_norm([p.grad for p in params], norm_type=2.0)
+        # chỉ đo, không cắt (get_total_norm có từ torch 2.6; bản cũ hơn trên Colab/Kaggle thì tự tính)
+        if hasattr(torch.nn.utils, "get_total_norm"):
+            return torch.nn.utils.get_total_norm([p.grad for p in params], norm_type=2.0)
+        return torch.linalg.vector_norm(torch.stack([torch.linalg.vector_norm(p.grad) for p in params]))
     return torch.nn.utils.clip_grad_norm_(params, max_norm)
